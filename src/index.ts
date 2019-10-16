@@ -37,7 +37,7 @@ class ActualImportCsv extends Command {
         // Transform the contents to an array holding the transactions
 
         // Enter Actual Budget
-        await this.askForActualBudget();
+        await this.askForActualBudgetId();
 
         // Choose Actual account to import to
 
@@ -58,7 +58,7 @@ class ActualImportCsv extends Command {
         }
     };
 
-    async askForActualBudget() {
+    async askForActualBudgetId() {
         const defaultStash = this.config.get('budgetId') || 'My-Stash';
         const response = await inquirer.prompt([{
             name: 'budgetId',
@@ -66,7 +66,6 @@ class ActualImportCsv extends Command {
             default: defaultStash
         }]);
         this.config.set('budgetId', response.budgetId);
-        this.log(response.budgetId);
     };
 
 }
