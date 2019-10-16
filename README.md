@@ -30,7 +30,7 @@ npm link # or: yarn link
 
 ## Usage
 
-To import transactions, run
+To import transactions from a file, run:
 
 ```bash
 actual-import-csv filename.csv
