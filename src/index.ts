@@ -3,8 +3,10 @@ import cli from 'cli-ux';
 import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
 
-import {fileExists} from './files';
+import {fileExists, parseCsvFile} from './file';
 import {checkIfBudgetExists} from './actual';
+
+import {parseOptions, transformFunction} from "./banks/zkb_de";
 
 class ActualImportCsv extends Command {
     static description = 'describe the command here';
@@ -26,20 +28,23 @@ class ActualImportCsv extends Command {
         const {args, flags} = this.parse(ActualImportCsv);
 
         // Check if file exists
-        // this.checkIfFileExists(args.file);
+        this.checkIfFileExists(args.file);
 
         // Init Configstore
         this.config = new Configstore('actual-import-csv');
 
         // Future: Select which format the file is in,
         // or detect automatically
+        const bank = { parseOptions, transformFunction };
 
         // Parse the file
+        let transactions = this.parseFile(args.file, bank.parseOptions);
 
         // Transform the contents to an array holding the transactions
+        transactions = bank.transformFunction(transactions);
 
         // Enter Actual Budget
-        await this.askForActualBudgetId();
+        // await this.askForActualBudgetId();
 
         // Choose Actual account to import to
 
@@ -60,6 +65,10 @@ class ActualImportCsv extends Command {
         }
     }
 
+    parseFile(file: string, parseConfig: object) {
+        return parseCsvFile(file, parseConfig);
+    }
+
     async askForActualBudgetId() {
         const defaultStash = this.config.get('budgetId') || 'My-Stash';
         const response = await inquirer.prompt([{
@@ -75,7 +84,6 @@ class ActualImportCsv extends Command {
         } catch (e) {
             this.exit();
         }
-
     }
 
 }

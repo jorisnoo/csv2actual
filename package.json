@@ -12,6 +12,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
+    "@sindresorhus/slugify": "^0.9.1",
     "cli-ux": "^5.3.2",
     "configstore": "^5.0.0",
     "inquirer": "^7.0.0",
