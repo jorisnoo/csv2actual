@@ -1,29 +1,40 @@
 import {Command, flags} from '@oclif/command';
+import {fileExists} from './files';
 
 class ActualImportCsv extends Command {
     static description = 'describe the command here';
 
     static flags = {
-        // add --version flag to show CLI version
         version: flags.version({char: 'v'}),
         help: flags.help({char: 'h'}),
-        // flag with a value (-n, --name=VALUE)
-        // name: flags.string({char: 'n', description: 'name to print'}),
-        // flag with no value (-f, --force)
-        // force: flags.boolean({char: 'f'}),
     };
 
-    static args = [{name: 'file'}];
+    static args = [{
+        name: 'file',
+        description: 'file to import, must have the .csv extension',
+        required: true,
+    }];
 
     async run() {
         const {args, flags} = this.parse(ActualImportCsv);
 
-        // const name = flags.name || 'world';
-        // this.log(`hello ${name} from ./src/index.ts`);
-        // if (args.file && flags.force) {
-        //     this.log(`you input --force and --file: ${args.file}`);
-        // }
-    }
+        this.checkIfFileExists(args.file);
+
+    };
+
+    checkIfFileExists(file: string) {
+        try {
+            if (!file.endsWith('.csv')) {
+                this.error(file + ' is not a .csv file.')
+            }
+            if (!fileExists(file)) {
+                this.error('File ' + file + ' cannot be found.')
+            }
+        } catch(err) {
+            this.error(err)
+        }
+    };
+
 }
 
 export = ActualImportCsv;
