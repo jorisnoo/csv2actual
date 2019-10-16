@@ -5,13 +5,13 @@ export async function checkIfBudgetExists(budgetId: string) {
 }
 
 export async function getAccounts(budgetId: string) {
-    return await api.runWithBudget(budgetId, () => {
-        return api.getAccounts();
+    return api.runWithBudget(budgetId, async () => {
+        return await api.getAccounts();
     });
 }
 
 export async function importTransactions(budgetId: string, accountId: string, transactions) {
-    await api.runWithBudget(budgetId, () => {
-        api.importTransactions(accountId, transactions);
+    return api.runWithBudget(budgetId, async () => {
+        return await api.importTransactions(accountId, transactions);
     });
 }

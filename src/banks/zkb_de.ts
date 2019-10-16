@@ -6,6 +6,10 @@ export const parseOptions = {
     transformHeader: header => slugify(header),
 };
 
+export const requiredHeaders = [
+    'zkb-referenz', 'belastung-chf', 'gutschrift-chf', 'valuta'
+];
+
 export function transformFunction(transactions) {
     return transactions
         // Remove (epmpty) transactions without a date
