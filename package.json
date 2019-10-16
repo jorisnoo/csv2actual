@@ -1,7 +1,7 @@
 {
     "name": "actual-import-csv",
     "description": "Import transactions from csv files to accounts in Actual",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "author": "Joris Noordermeer @jorisnoo",
     "bin": {
         "actual-import-csv": "./bin/run"
