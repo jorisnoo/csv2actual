@@ -1,7 +1,8 @@
 import {Command, flags} from '@oclif/command';
 import cli from 'cli-ux';
-import * as inquirer from 'inquirer'
 import * as Configstore from 'configstore';
+import * as inquirer from 'inquirer';
+
 import {fileExists} from './files';
 
 class ActualImportCsv extends Command {
@@ -43,30 +44,30 @@ class ActualImportCsv extends Command {
 
         // Import transactions
 
-    };
+    }
 
     checkIfFileExists(file: string) {
         try {
             if (!file.endsWith('.csv')) {
-                this.error(file + ' is not a .csv file.')
+                this.error(file + ' is not a .csv file.');
             }
             if (!fileExists(file)) {
-                this.error('File ' + file + ' cannot be found.')
+                this.error('File ' + file + ' cannot be found.');
             }
-        } catch(err) {
-            this.error(err)
+        } catch (err) {
+            this.error(err);
         }
-    };
+    }
 
     async askForActualBudgetId() {
         const defaultStash = this.config.get('budgetId') || 'My-Stash';
         const response = await inquirer.prompt([{
             name: 'budgetId',
             message: 'Please enter the Budget ID (Located in the settings under "Advanced")',
-            default: defaultStash
+            default: defaultStash,
         }]);
         this.config.set('budgetId', response.budgetId);
-    };
+    }
 
 }
 
