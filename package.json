@@ -38,7 +38,11 @@
     ],
     "homepage": "https://github.com/jorisnoo/actual-import-csv",
     "keywords": [
-        "oclif", "actualbudget", "actualapp", "csv-import", "zkb"
+        "oclif",
+        "actualbudget",
+        "actualapp",
+        "csv-import",
+        "zkb"
     ],
     "license": "Unlicense",
     "main": "lib/index.js",

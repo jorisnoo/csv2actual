@@ -8,7 +8,7 @@ import {parseOptions, requiredHeaders, transformFunction} from './banks/zkb-de';
 import {fileExists, parseCsvFile} from './file';
 
 class ActualImportCsv extends Command {
-    static description = 'describe the command here';
+    static description = 'Import transactions from a csv file to actual';
 
     static flags = {
         version: flags.version({char: 'v'}),
@@ -100,7 +100,7 @@ class ActualImportCsv extends Command {
         const defaultStash = this.config.get('budgetId') || 'My-Stash';
         const response = await inquirer.prompt([{
             name: 'budgetId',
-            message: 'Please enter the Budget ID (Located in the settings under "Advanced")',
+            message: 'Please enter the Budget ID',
             default: defaultStash,
         }]);
 
@@ -109,8 +109,8 @@ class ActualImportCsv extends Command {
             await checkIfBudgetExists(response.budgetId);
             this.config.set('budgetId', response.budgetId);
         } catch (e) {
-            this.error(e);
             this.exit();
+            this.error(e);
         }
     }
 
