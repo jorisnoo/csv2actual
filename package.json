@@ -1,57 +1,57 @@
 {
-  "name": "actual-import-csv",
-  "description": "Import transactions from csv files to accounts in Actual",
-  "version": "0.0.0",
-  "author": "Joris Noordermeer @jorisnoo",
-  "bin": {
-    "actual-import-csv": "./bin/run"
-  },
-  "bugs": "https://github.com/jorisnoo/actual-import-csv/issues",
-  "dependencies": {
-    "@actual-app/api": "^1.0.8",
-    "@oclif/command": "^1",
-    "@oclif/config": "^1",
-    "@oclif/plugin-help": "^2",
-    "@sindresorhus/slugify": "^0.9.1",
-    "cli-ux": "^5.3.2",
-    "configstore": "^5.0.0",
-    "inquirer": "^7.0.0",
-    "moment": "^2.24.0",
-    "papaparse": "^5.1.0",
-    "tslib": "^1"
-  },
-  "devDependencies": {
-    "@oclif/tslint": "^3",
-    "@types/configstore": "^4.0.0",
-    "@types/inquirer": "^6.5.0",
-    "@types/node": "^10",
-    "ts-node": "^8",
-    "tslint": "^5",
-    "typescript": "^3.3"
-  },
-  "engines": {
-    "node": ">=8.0.0"
-  },
-  "files": [
-    "/bin",
-    "/lib"
-  ],
-  "homepage": "https://github.com/jorisnoo/actual-import-csv",
-  "keywords": [
-    "oclif"
-  ],
-  "license": "Unlicense",
-  "main": "lib/index.js",
-  "oclif": {
-    "bin": "actual-import-csv"
-  },
-  "repository": "jorisnoo/actual-import-csv",
-  "scripts": {
-    "lint": "tslint -p . -t stylish",
-    "lintfix": "tslint -p . -t stylish --fix",
-    "posttest": "lint",
-    "prepack": "rm -rf lib && tsc -b",
-    "test": "echo NO TESTS"
-  },
-  "types": "lib/index.d.ts"
+    "name": "actual-import-csv",
+    "description": "Import transactions from csv files to accounts in Actual",
+    "version": "0.0.0",
+    "author": "Joris Noordermeer @jorisnoo",
+    "bin": {
+        "actual-import-csv": "./bin/run"
+    },
+    "bugs": "https://github.com/jorisnoo/actual-import-csv/issues",
+    "dependencies": {
+        "@actual-app/api": "^1.0.8",
+        "@oclif/command": "^1",
+        "@oclif/config": "^1",
+        "@oclif/plugin-help": "^2",
+        "@sindresorhus/slugify": "^0.9.1",
+        "cli-ux": "^5.3.2",
+        "configstore": "^5.0.0",
+        "inquirer": "^7.0.0",
+        "moment": "^2.24.0",
+        "papaparse": "^5.1.0",
+        "tslib": "^1"
+    },
+    "devDependencies": {
+        "@oclif/tslint": "^3",
+        "@types/configstore": "^4.0.0",
+        "@types/inquirer": "^6.5.0",
+        "@types/node": "^10",
+        "ts-node": "^8",
+        "tslint": "^5",
+        "typescript": "^3.3"
+    },
+    "engines": {
+        "node": ">=8.0.0"
+    },
+    "files": [
+        "/bin",
+        "/lib"
+    ],
+    "homepage": "https://github.com/jorisnoo/actual-import-csv",
+    "keywords": [
+        "oclif", "actualbudget", "actualapp", "csv-import", "zkb"
+    ],
+    "license": "UNLICENSE",
+    "main": "lib/index.js",
+    "oclif": {
+        "bin": "actual-import-csv"
+    },
+    "repository": "jorisnoo/actual-import-csv",
+    "scripts": {
+        "lint": "tslint -p . -t stylish",
+        "lintfix": "tslint -p . -t stylish --fix",
+        "posttest": "lint",
+        "prepack": "rm -rf lib && tsc -b",
+        "test": "echo NO TESTS"
+    },
+    "types": "lib/index.d.ts"
 }
