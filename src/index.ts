@@ -4,7 +4,7 @@ import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
 
 import {fileExists, parseCsvFile} from './file';
-import {checkIfBudgetExists, getAccounts} from './actual';
+import {checkIfBudgetExists, getAccounts, importTransactions} from './actual';
 
 import {parseOptions, transformFunction} from "./banks/zkb_de";
 
@@ -35,7 +35,7 @@ class ActualImportCsv extends Command {
 
         // Future: Select which format the file is in,
         // or detect automatically
-        const bank = { parseOptions, transformFunction };
+        const bank = {parseOptions, transformFunction};
 
         // Parse the file
         let transactions = this.parseFile(args.file, bank.parseOptions);
@@ -50,7 +50,7 @@ class ActualImportCsv extends Command {
         await this.determineActualAccount();
 
         // Import transactions
-
+        await this.importTransactions(transactions);
     }
 
     checkIfFileExists(file: string) {
@@ -89,15 +89,42 @@ class ActualImportCsv extends Command {
 
     async determineActualAccount() {
         const accounts = await getAccounts(this.config.get('budgetId'));
+        let defaultAccount = this.config.get('accountId') || false;
         const response = await inquirer.prompt([{
             name: 'accountId',
             type: 'list',
             message: 'Which account would you like to import to?',
+            default: defaultAccount,
             choices: accounts.map(obj => {
                 return {name: obj.name, value: obj.id};
             }),
         }]);
         this.config.set('accountId', response.accountId);
+        this.config.set('accountName', accounts.find(obj => obj.id === response.accountId).name);
+    }
+
+    async importTransactions(transactions) {
+        const accountName = this.config.get('accountName');
+        const response = await inquirer.prompt({
+            type: 'confirm',
+            name: 'doImport',
+            message: `Are you sure you want to import ${transactions.length} transactions to ${accountName}?`,
+        });
+        if (!response.doImport) {
+            this.exit();
+        }
+
+        cli.action.start(`Importing ${transactions.length} transactions to ${accountName}`);
+        try {
+            await importTransactions(
+                this.config.get('budgetId'),
+                this.config.get('accountId'),
+                transactions,
+            );
+        } catch (e) {
+            this.error(e);
+        }
+        cli.action.stop();
     }
 
 }
