@@ -4,7 +4,7 @@ import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
 
 import {fileExists, parseCsvFile} from './file';
-import {checkIfBudgetExists} from './actual';
+import {checkIfBudgetExists, getAccounts} from './actual';
 
 import {parseOptions, transformFunction} from "./banks/zkb_de";
 
@@ -44,9 +44,10 @@ class ActualImportCsv extends Command {
         transactions = bank.transformFunction(transactions);
 
         // Enter Actual Budget
-        // await this.askForActualBudgetId();
+        await this.askForActualBudgetId();
 
         // Choose Actual account to import to
+        await this.determineActualAccount();
 
         // Import transactions
 
@@ -84,6 +85,19 @@ class ActualImportCsv extends Command {
         } catch (e) {
             this.exit();
         }
+    }
+
+    async determineActualAccount() {
+        const accounts = await getAccounts(this.config.get('budgetId'));
+        const response = await inquirer.prompt([{
+            name: 'accountId',
+            type: 'list',
+            message: 'Which account would you like to import to?',
+            choices: accounts.map(obj => {
+                return {name: obj.name, value: obj.id};
+            }),
+        }]);
+        this.config.set('accountId', response.accountId);
     }
 
 }
