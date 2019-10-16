@@ -4,6 +4,7 @@ import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
 
 import {fileExists} from './files';
+import {checkIfBudgetExists} from './actual';
 
 class ActualImportCsv extends Command {
     static description = 'describe the command here';
@@ -49,10 +50,10 @@ class ActualImportCsv extends Command {
     checkIfFileExists(file: string) {
         try {
             if (!file.endsWith('.csv')) {
-                this.error(file + ' is not a .csv file.');
+                this.error(`${file} is not a .csv file.`);
             }
             if (!fileExists(file)) {
-                this.error('File ' + file + ' cannot be found.');
+                this.error(`File ${file} cannot be found.`);
             }
         } catch (err) {
             this.error(err);
@@ -66,7 +67,15 @@ class ActualImportCsv extends Command {
             message: 'Please enter the Budget ID (Located in the settings under "Advanced")',
             default: defaultStash,
         }]);
-        this.config.set('budgetId', response.budgetId);
+
+        // Verify budget exists
+        try {
+            await checkIfBudgetExists(response.budgetId);
+            this.config.set('budgetId', response.budgetId);
+        } catch (e) {
+            this.exit();
+        }
+
     }
 
 }
