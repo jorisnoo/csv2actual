@@ -18,7 +18,21 @@ class ActualImportCsv extends Command {
     async run() {
         const {args, flags} = this.parse(ActualImportCsv);
 
+        // Check if file exists
         this.checkIfFileExists(args.file);
+
+        // Future: Select which format the file is in,
+        // or detect automatically
+
+        // Parse the file
+
+        // Transform the contents to an array holding the transactions
+
+        // Enter Actual Budget
+
+        // Choose Actual account to import to
+
+        // Import transactions
 
     };
 
