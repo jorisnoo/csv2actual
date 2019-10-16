@@ -40,7 +40,7 @@
     "keywords": [
         "oclif", "actualbudget", "actualapp", "csv-import", "zkb"
     ],
-    "license": "UNLICENSE",
+    "license": "Unlicense",
     "main": "lib/index.js",
     "oclif": {
         "bin": "actual-import-csv"
