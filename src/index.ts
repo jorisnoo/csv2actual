@@ -3,10 +3,9 @@ import cli from 'cli-ux';
 import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
 
-import {fileExists, parseCsvFile} from './file';
 import {checkIfBudgetExists, getAccounts, importTransactions} from './actual';
-
-import {parseOptions, transformFunction, requiredHeaders} from "./banks/zkb_de";
+import {parseOptions, requiredHeaders, transformFunction} from './banks/zkb-de';
+import {fileExists, parseCsvFile} from './file';
 
 class ActualImportCsv extends Command {
     static description = 'describe the command here';
@@ -30,10 +29,10 @@ class ActualImportCsv extends Command {
         requiredHeaders,
         transformFunction,
     };
-    file: string = '';
+    file = '';
 
     async run() {
-        const {args, flags} = this.parse(ActualImportCsv);
+        const {args, /*flags*/} = this.parse(ActualImportCsv);
 
         // Check if file exists
         this.file = args.file;
@@ -85,10 +84,10 @@ class ActualImportCsv extends Command {
     }
 
     checkIfTransactionsAreValid() {
-        if(this.transactions.length < 2) {
+        if (this.transactions.length < 2) {
             this.error(`No transactions found in file "${this.file}"!`);
         }
-        if(![...this.bank.requiredHeaders].every(header => header in this.transactions[0])) {
+        if (![...this.bank.requiredHeaders].every(header => header in this.transactions[0])) {
             this.error(`"${this.file}" is not a valid export from the selected bank "${this.bank.name}"!`);
         }
     }
@@ -110,6 +109,7 @@ class ActualImportCsv extends Command {
             await checkIfBudgetExists(response.budgetId);
             this.config.set('budgetId', response.budgetId);
         } catch (e) {
+            this.error(e);
             this.exit();
         }
     }
@@ -143,10 +143,10 @@ class ActualImportCsv extends Command {
 
         cli.action.start(`Importing ${this.transactions.length} transactions to ${accountName}`);
         try {
-            const result = await importTransactions(
+            await importTransactions(
                 this.config.get('budgetId'),
                 this.config.get('accountId'),
-                this.transactions,
+                this.transactions
             );
         } catch (e) {
             this.error(e);

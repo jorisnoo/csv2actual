@@ -1,6 +1,6 @@
 import {existsSync, readFileSync} from 'fs';
-import {basename} from 'path';
 import * as Papa from 'papaparse';
+import {basename} from 'path';
 
 export function fileExists(filePath: string) {
     return existsSync(filePath);

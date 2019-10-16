@@ -6,12 +6,12 @@ export async function checkIfBudgetExists(budgetId: string) {
 
 export async function getAccounts(budgetId: string) {
     return api.runWithBudget(budgetId, async () => {
-        return await api.getAccounts();
+        return api.getAccounts();
     });
 }
 
 export async function importTransactions(budgetId: string, accountId: string, transactions) {
     return api.runWithBudget(budgetId, async () => {
-        return await api.importTransactions(accountId, transactions);
+        return api.importTransactions(accountId, transactions);
     });
 }
