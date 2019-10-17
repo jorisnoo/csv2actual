@@ -5,11 +5,12 @@ A command line utility to import bank transactions as csv into [Actual](https://
 ## Why?
 
 While Actual can import bank account statements through the "Quicken" format, not all banks support this.
-Instead, they may allow exporting transaction data in custom formats.
+Instead, they may allow exporting transaction data in a custom format. 
+This utility aims to enable importing data from unsupported banks, so it doesn't need to be entered my hand.
 
 ## Supported banks
 
-- Zürcher Kantonalbank (German Export)
+- Zürcher Kantonalbank (German)
 
 If you'd like to see support for another bank, please open an issue or PR 💫
 
@@ -35,3 +36,5 @@ To import transactions from a file, run:
 ```bash
 actual-import-csv filename.csv
 ```
+
+You will be prompted to enter your buget and choose an account to import into.
