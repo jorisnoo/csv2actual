@@ -21,7 +21,7 @@ class ActualImportCsv extends Command {
         required: true,
     }];
 
-    config: any;
+    userConfig: any;
     transactions = [];
     bank = {
         name: 'ZKB (German)',
@@ -39,7 +39,7 @@ class ActualImportCsv extends Command {
         this.checkIfFileExists();
 
         // Init Configstore
-        this.config = new Configstore('actual-import-csv');
+        this.userConfig = new Configstore('actual-import-csv');
 
         // Future: Select which format the file is in,
         // or detect automatically
@@ -97,7 +97,7 @@ class ActualImportCsv extends Command {
     }
 
     async askForActualBudgetId() {
-        const defaultStash = this.config.get('budgetId') || 'My-Stash';
+        const defaultStash = this.userConfig.get('budgetId') || 'My-Stash';
         const response = await inquirer.prompt([{
             name: 'budgetId',
             message: 'Please enter the Budget ID',
@@ -107,7 +107,7 @@ class ActualImportCsv extends Command {
         // Verify budget exists
         try {
             await checkIfBudgetExists(response.budgetId);
-            this.config.set('budgetId', response.budgetId);
+            this.userConfig.set('budgetId', response.budgetId);
         } catch (e) {
             this.exit();
             this.error(e);
@@ -115,8 +115,8 @@ class ActualImportCsv extends Command {
     }
 
     async determineActualAccount() {
-        const accounts = await getAccounts(this.config.get('budgetId'));
-        let defaultAccount = this.config.get('accountId') || false;
+        const accounts = await getAccounts(this.userConfig.get('budgetId'));
+        let defaultAccount = this.userConfig.get('accountId') || false;
         const response = await inquirer.prompt([{
             name: 'accountId',
             type: 'list',
@@ -126,12 +126,12 @@ class ActualImportCsv extends Command {
                 return {name: obj.name, value: obj.id};
             }),
         }]);
-        this.config.set('accountId', response.accountId);
-        this.config.set('accountName', accounts.find(obj => obj.id === response.accountId).name);
+        this.userConfig.set('accountId', response.accountId);
+        this.userConfig.set('accountName', accounts.find(obj => obj.id === response.accountId).name);
     }
 
     async importTransactions() {
-        const accountName = this.config.get('accountName');
+        const accountName = this.userConfig.get('accountName');
         const response = await inquirer.prompt({
             type: 'confirm',
             name: 'doImport',
@@ -144,8 +144,8 @@ class ActualImportCsv extends Command {
         cli.action.start(`Importing ${this.transactions.length} transactions to ${accountName}`);
         try {
             await importTransactions(
-                this.config.get('budgetId'),
-                this.config.get('accountId'),
+                this.userConfig.get('budgetId'),
+                this.userConfig.get('accountId'),
                 this.transactions
             );
         } catch (e) {
