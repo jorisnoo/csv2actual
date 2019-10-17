@@ -6,7 +6,7 @@ A command line utility to import bank transactions as csv into [Actual](https://
 
 While Actual can import bank account statements through the "Quicken" format, not all banks support this.
 Instead, they may allow exporting transaction data in a custom format. 
-This utility aims to enable importing data from unsupported banks, so it doesn't need to be entered my hand.
+This utility aims to enable importing data from unsupported banks, so they don't need to be entered by hand.
 
 ## Supported banks
 
