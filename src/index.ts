@@ -8,7 +8,7 @@ import {parseOptions, requiredHeaders, transformFunction} from './banks/zkb-de';
 import {fileExists, parseCsvFile} from './file';
 
 class ActualImportCsv extends Command {
-    static description = 'Import transactions from a csv file to actual';
+    static description = 'Import transactions from a csv file into actual';
 
     static flags = {
         version: flags.version({char: 'v'}),
@@ -120,7 +120,7 @@ class ActualImportCsv extends Command {
         const response = await inquirer.prompt([{
             name: 'accountId',
             type: 'list',
-            message: 'Which account would you like to import to?',
+            message: 'Which account would you like to import into?',
             default: defaultAccount,
             choices: accounts.map(obj => {
                 return {name: obj.name, value: obj.id};
@@ -135,13 +135,13 @@ class ActualImportCsv extends Command {
         const response = await inquirer.prompt({
             type: 'confirm',
             name: 'doImport',
-            message: `Are you sure you want to import ${this.transactions.length} transactions to ${accountName}?`,
+            message: `Are you sure you want to import ${this.transactions.length} transactions into ${accountName}?`,
         });
         if (!response.doImport) {
             this.exit();
         }
 
-        cli.action.start(`Importing ${this.transactions.length} transactions to ${accountName}`);
+        cli.action.start(`Importing ${this.transactions.length} transactions into ${accountName}`);
         try {
             await importTransactions(
                 this.userConfig.get('budgetId'),
