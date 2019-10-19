@@ -15,6 +15,7 @@
                 },
                 "esSpecCompliant": true
             }
-        ]
+        ],
+        "no-unnecessary-class": ["allow-static-only"]
     }
 }
