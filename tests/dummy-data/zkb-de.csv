@@ -1,0 +1,8 @@
+﻿"Datum";"Buchungstext";"ZKB-Referenz";"Referenznummer";"Belastung CHF";"Gutschrift CHF";"Valuta";"Saldo CHF"
+"21.10.2019";"Bezug ZKB Maestro Karte Nr. 123456, PF Filiale Zürich";"ZKB-7";"";"102.00";"";"07.10.2019";"1814.50"
+"21.10.2019";"Einkauf ZKB Maestro Karte Nr. 123456, Migros";"ZKB-6";"";"24.00";"";"06.10.2019";"1916.50"
+"17.10.2019";"Gutschrift TWINT: Renzo Bättig";"ZKB-5";"";"";"3.50";"05.10.2019";"1930.50"
+"15.10.2019";"Gebühr Kontoführung CHF 3.00";"ZKB-4";"";"3.00";"";"04.10.2019";"1927.00"
+"10.10.2019";"Gutschrift Auftraggeber: John Goo";"ZKB-3";"";"";"1000.00";"03.10.2019";"1930.00"
+"07.10.2019";"Belastung eBanking Mobile: Muster AG";"ZKB-2";"";"70.00";"";"02.10.2019";"930.00"
+"06.10.2019";"Belastung TWINT: Twint-Belastung";"ZKB-1";"";"30.00";"";"01.10.2019";"1000.00"
