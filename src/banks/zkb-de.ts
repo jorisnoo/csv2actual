@@ -5,16 +5,15 @@ abstract class Bank {
     static requiredHeaders: any;
     static validateHeaders(transaction): boolean {
         return this.requiredHeaders.every(header => header in transaction);
-    }
-}
-
-export class ZkbGerman extends Bank {
-    static description = 'ZKB (German)';
-
+    };
     static parseOptions = {
         header: true,
         transformHeader: header => slugify(header),
     };
+}
+
+export class ZkbGerman extends Bank {
+    static description = 'ZKB (German)';
 
     static requiredHeaders = [
         'zkb-referenz', 'belastung-chf', 'gutschrift-chf', 'valuta',
