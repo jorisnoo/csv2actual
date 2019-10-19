@@ -4,8 +4,8 @@ import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
 
 import {checkIfBudgetExists, getAccounts, importTransactions} from './actual';
-import {parseOptions, requiredHeaders, transformFunction} from './banks/zkb-de';
-import {fileExists, parseCsvFile} from './file';
+import {ZkbGerman} from './banks/zkb-de';
+import {fileExists, parseCsvFile, readFileContents} from './file';
 
 class ActualImportCsv extends Command {
     static description = 'Import transactions from a csv file into actual';
@@ -21,83 +21,65 @@ class ActualImportCsv extends Command {
         required: true,
     }];
 
-    userConfig: any;
-    transactions = [];
-    bank = {
-        name: 'ZKB (German)',
-        parseOptions,
-        requiredHeaders,
-        transformFunction,
-    };
-    file = '';
-
     async run() {
         const {args, /*flags*/} = this.parse(ActualImportCsv);
 
         // Check if file exists
-        this.file = args.file;
-        this.checkIfFileExists();
+        const file = args.file;
+        this.checkIfFileExists(file);
 
         // Init Configstore
-        this.userConfig = new Configstore('actual-import-csv');
+        let userConfig = new Configstore('actual-import-csv');
 
         // Future: Select which format the file is in,
         // or detect automatically
-        // const bank = {parseOptions, transformFunction};
+        const bank = ZkbGerman;
 
         // Parse the file
-        cli.action.start(`Parsing ${this.file}`);
-        this.parseFile();
+        cli.action.start(`Parsing ${file}`);
+        let transactions = parseCsvFile(readFileContents(file), bank.parseOptions);
 
         // Check if file is valid for import
-        this.checkIfTransactionsAreValid();
+        this.checkIfTransactionsAreValid(transactions, bank, file);
 
         // Transform the contents to an array holding the transactions
-        this.prepareTransactionsForImport();
-        cli.action.stop(`${this.transactions.length} transactions found!`);
+        transactions = bank.transformTransactions(transactions);
+        cli.action.stop(`${transactions.length} transactions found!`);
 
         // Enter Actual Budget
-        await this.askForActualBudgetId();
+        await this.askForActualBudgetId(userConfig);
 
         // Choose Actual account to import to
-        await this.determineActualAccount();
+        await this.determineActualAccount(userConfig);
 
         // Import transactions
-        await this.importTransactions();
+        await this.importTransactions(userConfig, transactions);
     }
 
-    checkIfFileExists() {
+    checkIfFileExists(file) {
         try {
-            if (!this.file.endsWith('.csv')) {
-                this.error(`"${this.file}" is not a .csv file.`);
+            if (!file.endsWith('.csv')) {
+                this.error(`"${file}" is not a .csv file.`);
             }
-            if (!fileExists(this.file)) {
-                this.error(`File "${this.file}" cannot be found.`);
+            if (!fileExists(file)) {
+                this.error(`File "${file}" cannot be found.`);
             }
         } catch (err) {
             this.error(err);
         }
     }
 
-    parseFile() {
-        this.transactions = parseCsvFile(this.file, this.bank.parseOptions);
-    }
-
-    checkIfTransactionsAreValid() {
-        if (this.transactions.length < 2) {
-            this.error(`No transactions found in file "${this.file}"!`);
+    checkIfTransactionsAreValid(transactions, bank, file) {
+        if (transactions.length < 2) {
+            this.error(`No transactions found in file "${file}"!`);
         }
-        if (![...this.bank.requiredHeaders].every(header => header in this.transactions[0])) {
-            this.error(`"${this.file}" is not a valid export from the selected bank "${this.bank.name}"!`);
+        if (!bank.validateHeaders(transactions[0])) {
+            this.error(`"${file}" is not a valid export from the selected bank "${bank.description}"!`);
         }
     }
 
-    prepareTransactionsForImport() {
-        this.transactions = this.bank.transformFunction(this.transactions);
-    }
-
-    async askForActualBudgetId() {
-        const defaultStash = this.userConfig.get('budgetId') || 'My-Stash';
+    async askForActualBudgetId(userConfig) {
+        const defaultStash = userConfig.get('budgetId') || 'My-Stash';
         const response = await inquirer.prompt([{
             name: 'budgetId',
             message: 'Please enter the Budget ID',
@@ -107,16 +89,16 @@ class ActualImportCsv extends Command {
         // Verify budget exists
         try {
             await checkIfBudgetExists(response.budgetId);
-            this.userConfig.set('budgetId', response.budgetId);
+            userConfig.set('budgetId', response.budgetId);
         } catch (e) {
             this.exit();
             this.error(e);
         }
     }
 
-    async determineActualAccount() {
-        const accounts = await getAccounts(this.userConfig.get('budgetId'));
-        let defaultAccount = this.userConfig.get('accountId') || false;
+    async determineActualAccount(userConfig) {
+        const accounts = await getAccounts(userConfig.get('budgetId'));
+        let defaultAccount = userConfig.get('accountId') || false;
         const response = await inquirer.prompt([{
             name: 'accountId',
             type: 'list',
@@ -126,27 +108,27 @@ class ActualImportCsv extends Command {
                 return {name: obj.name, value: obj.id};
             }),
         }]);
-        this.userConfig.set('accountId', response.accountId);
-        this.userConfig.set('accountName', accounts.find(obj => obj.id === response.accountId).name);
+        userConfig.set('accountId', response.accountId);
+        userConfig.set('accountName', accounts.find(obj => obj.id === response.accountId).name);
     }
 
-    async importTransactions() {
-        const accountName = this.userConfig.get('accountName');
+    async importTransactions(userConfig, transactions) {
+        const accountName = userConfig.get('accountName');
         const response = await inquirer.prompt({
             type: 'confirm',
             name: 'doImport',
-            message: `Are you sure you want to import ${this.transactions.length} transactions into ${accountName}?`,
+            message: `Are you sure you want to import ${transactions.length} transactions into ${accountName}?`,
         });
         if (!response.doImport) {
             this.exit();
         }
 
-        cli.action.start(`Importing ${this.transactions.length} transactions into ${accountName}`);
+        cli.action.start(`Importing ${transactions.length} transactions into ${accountName}`);
         try {
             await importTransactions(
-                this.userConfig.get('budgetId'),
-                this.userConfig.get('accountId'),
-                this.transactions
+                userConfig.get('budgetId'),
+                userConfig.get('accountId'),
+                transactions
             );
         } catch (e) {
             this.error(e);

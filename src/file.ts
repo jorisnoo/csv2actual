@@ -1,16 +1,15 @@
 import {existsSync, readFileSync} from 'fs';
 import * as Papa from 'papaparse';
-import {basename} from 'path';
 
 export function fileExists(filePath: string) {
     return existsSync(filePath);
 }
 
-export function getCurrentDirectoryBase() {
-    return basename(process.cwd());
+export function readFileContents(filePath: string) {
+    return readFileSync(filePath, 'utf-8');
 }
 
-export function parseCsvFile(filePath: string, config: object) {
-    const fileContents = readFileSync(filePath, 'utf-8');
+export function parseCsvFile(fileContents: string, config: object) {
+    // todo: catch errors
     return Papa.parse(fileContents, config).data;
 }
