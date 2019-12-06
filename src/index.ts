@@ -131,7 +131,7 @@ class ActualImportCsv extends Command {
                 transactions
             );
         } catch (e) {
-            this.error(e);
+            this.error(e.message);
         }
         cli.action.stop();
     }
