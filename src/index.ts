@@ -4,7 +4,7 @@ import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
 
 import {checkIfBudgetExists, getAccounts, importTransactions} from './actual';
-import {ZkbGerman} from './banks/zkb-de';
+import {supportedBanks} from './banks';
 import {fileExists, parseCsvFile, readFileContents} from './file';
 
 class ActualImportCsv extends Command {
@@ -31,9 +31,8 @@ class ActualImportCsv extends Command {
         // Init Configstore
         let userConfig = new Configstore('csv2actual');
 
-        // Future: Select which format the file is in,
-        // or detect automatically
-        const bank = ZkbGerman;
+        // Determine which bank the file matches
+        const bank = await this.determineBank();
 
         // Parse the file
         cli.action.start(`Parsing ${file}`);
@@ -67,6 +66,18 @@ class ActualImportCsv extends Command {
         } catch (err) {
             this.error(err);
         }
+    }
+
+    async determineBank() {
+        const response = await inquirer.prompt([{
+            name: 'bank',
+            type: 'list',
+            message: 'Which account would you like to import into?',
+            choices: Object.keys(supportedBanks).map(bank => {
+                return {name: supportedBanks[bank].description, value: bank};
+            }),
+        }]);
+        return supportedBanks[response.bank];
     }
 
     checkIfTransactionsAreValid(transactions, bank, file) {

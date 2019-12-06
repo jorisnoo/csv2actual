@@ -1,18 +1,8 @@
-import slugify from '@sindresorhus/slugify';
 import * as moment from 'moment';
 
-abstract class Bank {
-    static requiredHeaders: any;
-    static validateHeaders(transaction): boolean {
-        return this.requiredHeaders.every(header => header in transaction);
-    };
-    static parseOptions = {
-        header: true,
-        transformHeader: header => slugify(header),
-    };
-}
+import {Bank} from './base';
 
-export class ZkbGerman extends Bank {
+export class ZkbDe extends Bank {
     static description = 'ZKB (German)';
 
     static requiredHeaders = [
