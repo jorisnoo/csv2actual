@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import {Bank} from './base';
 
-export class ZkbDe extends Bank {
+export class ZkbGerman extends Bank {
     static description = 'ZKB (German)';
 
     static requiredHeaders = [

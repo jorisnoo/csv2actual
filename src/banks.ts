@@ -1,5 +1,5 @@
-import {ZkbDe} from './banks/zkb-de';
+import {ZkbGerman} from './banks/zkb-german';
 
 export const supportedBanks = {
-    'zkb-de': ZkbDe,
+    'zkb-german': ZkbGerman,
 };

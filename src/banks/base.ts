@@ -1,12 +1,10 @@
-import slugify from '@sindresorhus/slugify';
-
 export abstract class Bank {
+    static description: string;
     static requiredHeaders: any;
-    static parseOptions = {
-        header: true,
-        transformHeader: header => slugify(header),
-    };
     static validateHeaders(transaction): boolean {
         return this.requiredHeaders.every(header => header in transaction);
+    }
+    static transformTransactions(transactions) {
+        return transactions;
     }
 }

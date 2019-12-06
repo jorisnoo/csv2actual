@@ -1,11 +1,13 @@
 import {Command, flags} from '@oclif/command';
+import slugify from '@sindresorhus/slugify';
 import cli from 'cli-ux';
 import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
 
-import {checkIfBudgetExists, getAccounts, importTransactions} from './actual';
+import {checkIfBudgetExists, getAccounts, importTransactions} from './api/actual';
+import {fileExists, parseCsvFile, readFileContents} from './api/file';
 import {supportedBanks} from './banks';
-import {fileExists, parseCsvFile, readFileContents} from './file';
+import {Bank} from './banks/base';
 
 class ActualImportCsv extends Command {
     static description = 'Import transactions from a csv file into actual';
@@ -17,7 +19,7 @@ class ActualImportCsv extends Command {
 
     static args = [{
         name: 'file',
-        description: 'file to import, must have the .csv extension',
+        description: 'file to import, the extension must be .csv',
         required: true,
     }];
 
@@ -31,19 +33,20 @@ class ActualImportCsv extends Command {
         // Init Configstore
         let userConfig = new Configstore('csv2actual');
 
-        // Determine which bank the file matches
-        const bank = await this.determineBank();
-
         // Parse the file
         cli.action.start(`Parsing ${file}`);
-        let transactions = parseCsvFile(readFileContents(file), bank.parseOptions);
+        let transactions = this.parseFile(file);
+        cli.action.stop(`${transactions.length} transactions found!`);
 
-        // Check if file is valid for import
-        this.checkIfTransactionsAreValid(transactions, bank, file);
+        // Determine which bank the file matches
+        cli.action.start('Determine bank');
+        const bank = this.determineBank(file, transactions[0]);
+        cli.action.stop(`Importing transactions from: ${bank.description}`);
 
         // Transform the contents to an array holding the transactions
+        cli.action.start('Preparing transactions for import');
         transactions = bank.transformTransactions(transactions);
-        cli.action.stop(`${transactions.length} transactions found!`);
+        cli.action.stop();
 
         // Enter Actual Budget
         await this.askForActualBudgetId(userConfig);
@@ -68,25 +71,28 @@ class ActualImportCsv extends Command {
         }
     }
 
-    async determineBank() {
-        const response = await inquirer.prompt([{
-            name: 'bank',
-            type: 'list',
-            message: 'Which account would you like to import into?',
-            choices: Object.keys(supportedBanks).map(bank => {
-                return {name: supportedBanks[bank].description, value: bank};
-            }),
-        }]);
-        return supportedBanks[response.bank];
-    }
-
-    checkIfTransactionsAreValid(transactions, bank, file) {
-        if (transactions.length < 2) {
+    parseFile(file) {
+        let transactions = parseCsvFile(readFileContents(file), {
+            header: true,
+            transformHeader: header => slugify(header),
+        });
+        if (transactions.length < 1) {
             this.error(`No transactions found in file "${file}"!`);
         }
-        if (!bank.validateHeaders(transactions[0])) {
-            this.error(`"${file}" is not a valid export from the selected bank "${bank.description}"!`);
+        return transactions;
+    }
+
+    determineBank(file, transaction) {
+        let bank = Bank;
+        Object.keys(supportedBanks).forEach(key => {
+            if (supportedBanks[key].validateHeaders(transaction)) {
+                bank = supportedBanks[key];
+            }
+        });
+        if (!bank.description) {
+            this.error(`"${file}" is not a valid export from one of the supported banks.`);
         }
+        return bank;
     }
 
     async askForActualBudgetId(userConfig) {
