@@ -29,7 +29,7 @@ class ActualImportCsv extends Command {
         this.checkIfFileExists(file);
 
         // Init Configstore
-        let userConfig = new Configstore('actual-import-csv');
+        let userConfig = new Configstore('csv2actual');
 
         // Future: Select which format the file is in,
         // or detect automatically

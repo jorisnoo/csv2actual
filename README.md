@@ -1,4 +1,4 @@
-# actual-import-csv
+# csv2actual
 
 A command line utility to import bank transactions as csv into [Actual](https://actualbudget.com/).
 
@@ -20,8 +20,8 @@ For now, the easiest way to use the cli is to clone this repository.
 You'll need to have [node](https://nodejs.org/en/download/) installed first.
 
 ```bash
-git clone git@github.com:jorisnoo/actual-import-csv.git
-cd actual-import-csv
+git clone git@github.com:jorisnoo/csv2actual.git
+cd csv2actual
 
 npm install # or: yarn install
 
@@ -34,7 +34,7 @@ npm link # or: yarn link
 To import transactions from a file, run:
 
 ```bash
-actual-import-csv filename.csv
+csv2actual filename.csv
 ```
 
 You will be prompted to enter your buget and choose an account to import into.
