@@ -57,5 +57,8 @@
         "prepack": "rm -rf lib && tsc -b",
         "test": "echo NO TESTS"
     },
-    "types": "lib/index.d.ts"
+    "types": "lib/index.d.ts",
+    "volta": {
+        "node": "12.13.1"
+    }
 }
