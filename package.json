@@ -1,12 +1,14 @@
 {
-    "name": "csv2actual",
+    "name": "@jorisnoo/csv2actual",
     "description": "Import transactions from csv files to accounts in Actual",
     "version": "0.1.0",
     "author": "Joris Noordermeer @jorisnoo",
     "bin": {
         "csv2actual": "./bin/run"
     },
-    "bugs": "https://github.com/jorisnoo/csv2actual/issues",
+    "bugs": {
+        "url": "https://github.com/jorisnoo/csv2actual/issues"
+    },
     "dependencies": {
         "@actual-app/api": "^1.0.8",
         "@oclif/command": "^1",
@@ -49,7 +51,10 @@
     "oclif": {
         "bin": "csv2actual"
     },
-    "repository": "jorisnoo/csv2actual",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jorisnoo/csv2actual.git"
+    },
     "scripts": {
         "lint": "tslint -p . -t stylish",
         "lintfix": "tslint -p . -t stylish --fix",
