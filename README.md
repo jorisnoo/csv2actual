@@ -8,18 +8,35 @@ While Actual can import bank account statements through the "Quicken" format, no
 Instead, they may allow exporting transaction data in a custom format. 
 This utility aims to enable importing data from unsupported banks, so they don't need to be entered by hand.
 
-## Supported banks
+## Supported Banks
 
 - Zürcher Kantonalbank (German)
 
 If you'd like to see support for another bank, please open an issue or PR 💫
 
-## Installation
+## Getting Started
 
-For now, the easiest way to use the cli is to clone this repository.
-You'll need to have [node](https://nodejs.org/en/download/) installed first.
+Install the package through npm:
 
-```bash
+```
+npm install -g @jorisnoo/csv2actual
+# OR
+yarn global add @jorisnoo/csv2actual
+```
+
+To import transactions from a file, run:
+
+```
+csv2actual filename.csv
+```
+
+You will be prompted to enter your buget and choose an account to import into.
+
+## Local Development
+
+If you'd like to tinker with the code, you may use a local copy of this repository: 
+
+```
 git clone git@github.com:jorisnoo/csv2actual.git
 cd csv2actual
 
@@ -28,13 +45,3 @@ npm install # or: yarn install
 # Make the command available globally
 npm link # or: yarn link
 ```
-
-## Usage
-
-To import transactions from a file, run:
-
-```bash
-csv2actual filename.csv
-```
-
-You will be prompted to enter your buget and choose an account to import into.
