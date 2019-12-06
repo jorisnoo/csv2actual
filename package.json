@@ -10,12 +10,12 @@
         "url": "https://github.com/jorisnoo/csv2actual/issues"
     },
     "dependencies": {
-        "@actual-app/api": "^1.0.8",
+        "@actual-app/api": "^1.0.9",
         "@oclif/command": "^1",
         "@oclif/config": "^1",
         "@oclif/plugin-help": "^2",
         "@sindresorhus/slugify": "^0.9.1",
-        "cli-ux": "^5.3.2",
+        "cli-ux": "^5.3.3",
         "configstore": "^5.0.0",
         "inquirer": "^7.0.0",
         "moment": "^2.24.0",
@@ -26,10 +26,10 @@
         "@oclif/tslint": "^3",
         "@types/configstore": "^4.0.0",
         "@types/inquirer": "^6.5.0",
-        "@types/node": "^10",
+        "@types/node": "^12",
         "ts-node": "^8",
         "tslint": "^5",
-        "typescript": "^3.3"
+        "typescript": "^3.7"
     },
     "engines": {
         "node": ">=8.0.0"
