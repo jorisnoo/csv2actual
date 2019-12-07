@@ -32,7 +32,7 @@
         "typescript": "^3.7"
     },
     "engines": {
-        "node": ">=8.0.0"
+        "node": ">=10.13.0"
     },
     "files": [
         "/bin",
