@@ -1,16 +1,6 @@
-import slugify from '@sindresorhus/slugify';
 import * as moment from 'moment';
 
-abstract class Bank {
-    static requiredHeaders: any;
-    static validateHeaders(transaction): boolean {
-        return this.requiredHeaders.every(header => header in transaction);
-    };
-    static parseOptions = {
-        header: true,
-        transformHeader: header => slugify(header),
-    };
-}
+import {Bank} from './base';
 
 export class SparkasseGerman extends Bank {
     static description = 'Sparkasse (German)';
