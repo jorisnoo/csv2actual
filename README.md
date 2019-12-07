@@ -10,6 +10,7 @@ This utility aims to enable importing data from unsupported banks, so they don't
 
 ## Supported Banks
 
+- Sparkasse (German)
 - Zürcher Kantonalbank (German)
 
 If you'd like to see support for another bank, please open an issue or PR 💫
