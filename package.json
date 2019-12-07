@@ -58,7 +58,7 @@
     "scripts": {
         "lint": "tslint -p . -t stylish",
         "lintfix": "tslint -p . -t stylish --fix",
-        "posttest": "lint",
+        "posttest": "npm run-script lint",
         "prepack": "rm -rf lib && tsc -b",
         "test": "echo NO TESTS"
     },
