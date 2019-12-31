@@ -1,6 +1,6 @@
 # csv2actual
 
-A command line utility to **import** bank transactions as csv into [Actual](https://actualbudget.com/).
+A command line utility to import bank transactions as csv into [Actual](https://actualbudget.com/).
 
 ## Why?
 
@@ -10,14 +10,16 @@ This utility aims to enable importing data from unsupported banks, so they don't
 
 ## Supported Banks
 
+- Belfius (Belgian)
 - Sparkasse (German)
 - Zürcher Kantonalbank (German)
 
 If you'd like to see support for another bank, please open an issue or PR 💫
+Please consider adding a dummy export to `tests/dummy-data`.
 
 ## Getting Started
 
-Install the package through npm:
+Install as global package through npm:
 
 ```bash
 npm install -g @jorisnoo/csv2actual
