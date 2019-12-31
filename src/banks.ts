@@ -1,9 +1,9 @@
 import {BelfiusBe} from './banks/belfius-be';
-import {SparkasseGerman} from './banks/sparkasse-german';
-import {ZkbGerman} from './banks/zkb-german';
+import {SparkasseDe} from './banks/sparkasse-de';
+import {ZkbDe} from './banks/zkb-de';
 
 export const supportedBanks = {
-    'sparkasse-german': SparkasseGerman,
-    'zkb-german': ZkbGerman,
     'belfius-be': BelfiusBe,
+    'sparkasse-de': SparkasseDe,
+    'zkb-de': ZkbDe,
 };
