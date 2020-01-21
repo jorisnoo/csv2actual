@@ -22,7 +22,7 @@ export class BelfiusBe extends Bank {
                     payee = obj.mededelingen;
                 }
                 // Read date as utc (w/out timezone) and convert to js date
-                const date = moment.utc(obj.boekingsdatum, 'DD/MM/YYYY').toDate();
+                const date = moment.utc(obj.boekingsdatum, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
                 return {
                     imported_id: reference,

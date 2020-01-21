@@ -17,7 +17,7 @@ export class SparkasseDe extends Bank {
                 const payee = obj['beguenstigter-zahlungspflichtiger'];
 
                 // Read date as utc (w/out timezone) and convert to js date
-                const date = moment.utc(obj.valutadatum, 'DD.MM.YYYY').toDate();
+                const date = moment.utc(obj.valutadatum, 'DD.MM.YYYY').format('YYYY-MM-DD');
 
                 return {
                     notes: obj.verwendungszweck,
