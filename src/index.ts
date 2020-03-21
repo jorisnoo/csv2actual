@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command';
-import slugify from '@sindresorhus/slugify';
+import slugify = require('@sindresorhus/slugify');
 import cli from 'cli-ux';
 import * as Configstore from 'configstore';
 import * as inquirer from 'inquirer';
