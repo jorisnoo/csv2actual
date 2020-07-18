@@ -13,23 +13,23 @@
         "@actual-app/api": "^1.0.9",
         "@oclif/command": "^1",
         "@oclif/config": "^1",
-        "@oclif/plugin-help": "^2",
-        "@sindresorhus/slugify": "^0.11.0",
-        "cli-ux": "^5.4.5",
+        "@oclif/plugin-help": "^3",
+        "@sindresorhus/slugify": "^1.0.0",
+        "cli-ux": "^5.4.9",
         "configstore": "^5.0.1",
-        "inquirer": "^7.1.0",
-        "moment": "^2.24.0",
-        "papaparse": "^5.1.1",
-        "tslib": "^1"
+        "inquirer": "^7.3.2",
+        "moment": "^2.27.0",
+        "papaparse": "^5.2.0",
+        "tslib": "^2"
     },
     "devDependencies": {
         "@oclif/tslint": "^3",
         "@types/configstore": "^4.0.0",
         "@types/inquirer": "^6.5.0",
-        "@types/node": "^13",
+        "@types/node": "^14",
         "ts-node": "^8",
         "tslint": "^6",
-        "typescript": "^3.8"
+        "typescript": "^3.9"
     },
     "engines": {
         "node": ">=10.13.0"
