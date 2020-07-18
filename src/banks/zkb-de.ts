@@ -6,7 +6,7 @@ export class ZkbDe extends Bank {
     static description = 'ZKB (German)';
 
     static requiredHeaders = [
-        'zkb-referenz', 'belastung-chf', 'gutschrift-chf', 'valuta',
+        'zkb-referenz', 'belastung-chf', 'gutschrift-chf', 'datum',
     ];
 
     static transformTransactions(transactions) {
@@ -28,7 +28,7 @@ export class ZkbDe extends Bank {
                 }
 
                 // Read date as utc (w/out timezone) and convert to js date
-                const date = moment.utc(obj.valuta, 'DD.MM.YYYY').format('YYYY-MM-DD');
+                const date = moment.utc(obj.datum, 'DD.MM.YYYY').format('YYYY-MM-DD');
 
                 return {
                     imported_id: obj['zkb-referenz'],
