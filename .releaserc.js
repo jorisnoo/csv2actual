@@ -1,5 +1,5 @@
 module.exports = {
-    branches: ['stable'],
+    branches: ['main'],
     tagFormat: '${version}',
     plugins: [
         ['@semantic-release/commit-analyzer', {preset: 'eslint'}],
