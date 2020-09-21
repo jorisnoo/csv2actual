@@ -11,7 +11,7 @@ export class ZkbDe extends Bank {
 
     static transformTransactions(transactions) {
         return transactions
-            // Remove (epmpty) transactions without a date
+            // Remove (empty) transactions without a date
             .filter(transaction => transaction.datum)
             .map(obj => {
                 // Calculate amount

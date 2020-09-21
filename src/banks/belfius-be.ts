@@ -11,7 +11,7 @@ export class BelfiusBe extends Bank {
 
     static transformTransactions(transactions) {
         return transactions
-            // Remove (epmpty) transactions without a date
+            // Remove (empty) transactions without a date
             .filter(transaction => transaction.boekingsdatum)
             .map(obj => {
                 // Calculate amount
