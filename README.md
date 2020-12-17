@@ -2,6 +2,8 @@
 
 A command line utility to import bank transactions as csv into [Actual](https://actualbudget.com/).
 
+<img src="cli-recording.gif" width="200" />
+
 ## Why?
 
 Although [Actual](https://actualbudget.com/) supports importing bank statements from csv files, the exported format, as it is provided by the banks, sometimes needs to be adjusted manually. This utility aims to enable importing data from various banks, so there's no need to enter the statements by hand or change the exported csv files. Instead, the fields are mapped and parsed automatically.
