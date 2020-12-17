@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {Bank} from './base';
 
 export class ZkbDe extends Bank {
-    static description = 'ZKB (German)';
+    static description = 'ZKB';
 
     static requiredHeaders = [
         'zkb-referenz', 'belastung-chf', 'gutschrift-chf', 'datum',

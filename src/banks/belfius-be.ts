@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {Bank} from './base';
 
 export class BelfiusBe extends Bank {
-    static description = 'Belfius (Belgium)';
+    static description = 'Belfius';
 
     static requiredHeaders = [
         'transactie', 'boekingsdatum', 'bedrag',

@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {Bank} from './base';
 
 export class SparkasseDe extends Bank {
-    static description = 'Sparkasse (German)';
+    static description = 'Sparkasse';
 
     static requiredHeaders = [
         'auftragskonto', 'buchungstag', 'valutadatum', 'buchungstext', 'verwendungszweck', 'glaeubiger-id', 'mandatsreferenz', 'kundenreferenz-end-to-end', 'sammlerreferenz', 'lastschrift-ursprungsbetrag', 'auslagenersatz-ruecklastschrift', 'beguenstigter-zahlungspflichtiger', 'kontonummer-iban', 'bic-swift-code', 'betrag', 'waehrung', 'info',

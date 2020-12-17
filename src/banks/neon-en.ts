@@ -1,7 +1,7 @@
 import {Bank} from './base';
 
 export class NeonEn extends Bank {
-    static description = 'Neon (English)';
+    static description = 'Neon';
 
     static requiredHeaders = [
         'incoming-amount-outgoing-amount', 'date', 'description',
