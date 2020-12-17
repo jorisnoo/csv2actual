@@ -4,18 +4,24 @@ A command line utility to import bank transactions as csv into [Actual](https://
 
 ## Why?
 
-While Actual can import bank account statements through the "Quicken" format, not all banks support this.
-Instead, they may allow exporting transaction data in a custom format. 
-This utility aims to enable importing data from unsupported banks, so they don't need to be entered by hand.
+Although [Actual](https://actualbudget.com/) supports importing bank statements from csv files, the exported format, as it is provided by the banks, sometimes needs to be adjusted manually. This utility aims to enable importing data from various banks, so there's no need to enter the statements by hand or change the exported csv files. Instead, the fields are mapped and parsed automatically.
 
 ## Supported Banks
 
-- Belfius (Belgian)
-- Sparkasse (German)
-- Zürcher Kantonalbank (German)
+- [Belfius](https://www.belfius.be/) (Belgium, BE)
+- [neon](https://www.neon-free.ch/) (Switzerland, EN)
+- [Sparkasse](https://www.sparkasse.de/) (Germany, DE)
+- [Zürcher Kantonalbank](https://www.zkb.ch/) (Switzerland, DE)
 
-If you'd like to see support for another bank, please open an issue or PR 💫
-Please consider adding a dummy export to `tests/dummy-data`.
+| Bank | Country | Export Language |
+| ---- | ------- | --------------- |
+| [Belfius](https://www.belfius.be/) | Belgium | be |
+| [neon](https://www.neon-free.ch/) | Switzerland | en |
+| [Sparkasse](https://www.sparkasse.de/) | Germany | de |
+| [Zürcher Kantonalbank](https://www.zkb.ch/) | Switzerland | de |
+
+If you'd like to see support for another institution, please open an issue or PR 💫
+Please consider adding a dummy export to `tests/dummy-data`, so the import could be included in a test.
 
 ## Getting Started
 
