@@ -25,9 +25,7 @@ Please consider adding a dummy export to `tests/dummy-data`, so the import could
 Install as global package through npm:
 
 ```bash
-npm install -g @jorisnoo/csv2actual
-# OR
-yarn global add @jorisnoo/csv2actual
+npm install -g @jorisnoo/csv2actual # or: yarn global add @jorisnoo/csv2actual
 ```
 
 To import transactions from a file, run:
