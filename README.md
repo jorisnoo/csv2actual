@@ -8,11 +8,6 @@ Although [Actual](https://actualbudget.com/) supports importing bank statements 
 
 ## Supported Banks
 
-- [Belfius](https://www.belfius.be/) (Belgium, BE)
-- [neon](https://www.neon-free.ch/) (Switzerland, EN)
-- [Sparkasse](https://www.sparkasse.de/) (Germany, DE)
-- [Zürcher Kantonalbank](https://www.zkb.ch/) (Switzerland, DE)
-
 | Bank | Country | Export Language |
 | ---- | ------- | --------------- |
 | [Belfius](https://www.belfius.be/) | Belgium | be |
