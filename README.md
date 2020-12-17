@@ -2,7 +2,7 @@
 
 A command line utility to import bank transactions as csv into [Actual](https://actualbudget.com/).
 
-<img src="cli-recording.gif" width="200" />
+<img src="cli-recording.gif" width="500" />
 
 ## Why?
 
