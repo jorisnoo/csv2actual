@@ -2,8 +2,8 @@ module.exports = {
     branches: ['main'],
     tagFormat: '${version}',
     plugins: [
-        ['@semantic-release/commit-analyzer', {preset: 'eslint'}],
-        ['@semantic-release/release-notes-generator', {preset: 'eslint'}],
+        ['@semantic-release/commit-analyzer'],
+        ['@semantic-release/release-notes-generator'],
         '@semantic-release/github',
         '@semantic-release/npm',
     ],

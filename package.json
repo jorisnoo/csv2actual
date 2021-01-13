@@ -27,7 +27,6 @@
         "@types/configstore": "^4.0.0",
         "@types/inquirer": "^7.3.1",
         "@types/node": "^14.14.14",
-        "conventional-changelog-eslint": "^3.0.9",
         "semantic-release": "^17.3.0",
         "ts-node": "^9.1.1",
         "tslint": "^6.1.3",
