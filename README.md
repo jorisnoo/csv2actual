@@ -13,6 +13,7 @@ Although [Actual](https://actualbudget.com/) supports importing bank statements 
 | Bank | Country | Export Language |
 | ---- | ------- | --------------- |
 | [Belfius](https://www.belfius.be/) | Belgium | be |
+| [Fintro](https://www.fintro.be/) | Belgium | be |
 | [neon](https://www.neon-free.ch/) | Switzerland | en |
 | [Sparkasse](https://www.sparkasse.de/) | Germany | de |
 | [Zürcher Kantonalbank](https://www.zkb.ch/) | Switzerland | de |
@@ -38,7 +39,7 @@ You will be prompted to enter your buget and choose an account to import into.
 
 ## Local Development
 
-If you'd like to tinker with the code, you may use a local copy of this repository: 
+If you'd like to tinker with the code, you may use a local copy of this repository:
 
 ```bash
 git clone git@github.com:jorisnoo/csv2actual.git
