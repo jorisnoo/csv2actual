@@ -23,7 +23,8 @@ export class SparkasseDe extends Bank {
                     notes: obj.verwendungszweck,
                     date,
                     amount,
-                    payee,
+                    payee_name: payee,
+                    imported_payee: payee,
                 };
             });
     }

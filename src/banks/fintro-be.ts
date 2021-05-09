@@ -34,6 +34,7 @@ export class FintroBe extends Bank {
                 return {
                     imported_id: obj.volgnummer,
                     imported_payee: obj['tegenpartij-van-de-verrichting'],
+                    payee_name: obj['tegenpartij-van-de-verrichting'],
                     date,
                     amount,
                 };

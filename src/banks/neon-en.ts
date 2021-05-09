@@ -15,7 +15,8 @@ export class NeonEn extends Bank {
                 const amount = Math.round(parseFloat(obj['incoming-amount-outgoing-amount']) * 100);
 
                 return {
-                    payee: obj.description,
+                    imported_payee: obj.description,
+                    payee_name: obj.description,
                     date: obj.date,
                     amount,
                 };

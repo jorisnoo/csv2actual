@@ -30,7 +30,7 @@ export class BelfiusBe extends Bank {
                     notes: obj.mededelingen,
                     date,
                     amount,
-                    payee,
+                    payee_name: payee,
                 };
             });
     }

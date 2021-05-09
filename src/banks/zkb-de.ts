@@ -36,7 +36,7 @@ export class ZkbDe extends Bank {
                     notes: obj.zahlungszweck,
                     date,
                     amount,
-                    payee,
+                    payee_name: payee,
                 };
             });
     }
