@@ -17,7 +17,7 @@ export class ZkbDe extends Bank {
                 // Calculate amount
                 const deposit = parseFloat(obj['gutschrift-chf']) || 0;
                 const payment = parseFloat(obj['belastung-chf']) || 0;
-                const amount = deposit * 100 - payment * 100;
+                const amount = Math.round((deposit * 100) - (payment * 100));
 
                 // Strip first part of description
                 let payee = obj.buchungstext;

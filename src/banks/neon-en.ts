@@ -12,7 +12,7 @@ export class NeonEn extends Bank {
             .filter(transaction => transaction.date)
             .map(obj => {
                 // Calculate amount
-                const amount = parseFloat(obj['incoming-amount-outgoing-amount']) * 100;
+                const amount = Math.round(parseFloat(obj['incoming-amount-outgoing-amount']) * 100);
 
                 return {
                     payee: obj.description,

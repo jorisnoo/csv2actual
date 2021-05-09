@@ -26,7 +26,7 @@ export class FintroBe extends Bank {
             .filter(transaction => transaction.volgnummer.length > 6)
             .map(obj => {
                 // Calculate amount
-                const amount = parseFloat(obj.bedrag.replace(',', '.')) * 100;
+                const amount = Math.round(parseFloat(obj.bedrag.replace(',', '.')) * 100);
 
                 // Read date as utc (w/out timezone) and convert to js date
                 const date = moment.utc(obj.uitvoeringsdatum, 'DD/MM/YYYY').format('YYYY-MM-DD');

@@ -15,7 +15,7 @@ export class BelfiusBe extends Bank {
             .filter(transaction => transaction.boekingsdatum)
             .map(obj => {
                 // Calculate amount
-                const amount = parseFloat(obj.bedrag.replace(',', '.')) * 100;
+                const amount = Math.round(parseFloat(obj.bedrag.replace(',', '.')) * 100);
                 const reference = obj.transactie.match(/(REF)(?!.*\1)\. : (.*) VAL\. \d{2}-\d{2}/)[2].trim();
                 let payee = obj['naam-tegenpartij-bevat'].trim();
                 if (!payee) {
