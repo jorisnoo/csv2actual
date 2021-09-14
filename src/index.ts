@@ -66,7 +66,7 @@ class ActualImportCsv extends Command {
             if (!fileExists(file)) {
                 this.error(`File "${file}" cannot be found.`);
             }
-        } catch (err) {
+        } catch (err: any) {
             this.error(err);
         }
     }
@@ -107,9 +107,9 @@ class ActualImportCsv extends Command {
         try {
             await checkIfBudgetExists(response.budgetId);
             userConfig.set('budgetId', response.budgetId);
-        } catch (e) {
+        } catch (err: any) {
             this.exit();
-            this.error(e);
+            this.error(err);
         }
     }
 
@@ -147,8 +147,10 @@ class ActualImportCsv extends Command {
                 userConfig.get('accountId'),
                 transactions
             );
-        } catch (e) {
-            this.error(e.message);
+        } catch (err) {
+            if (err instanceof Error) {
+                this.error(err.message);
+            }
         }
         cli.action.stop();
     }
